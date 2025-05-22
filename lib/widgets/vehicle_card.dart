@@ -27,7 +27,10 @@ class VehicleCard extends StatelessWidget {
           Text(title, style: Theme.of(context).textTheme.bodyLarge),
           Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
           const Spacer(),
-          Image.asset(asset, height: 60),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Image.asset(asset, height: 80),
+          ),
         ],
       ),
     );

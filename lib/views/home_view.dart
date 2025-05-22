@@ -40,7 +40,7 @@ class HomeView extends StatelessWidget {
               Row(
                 children: [
                   const CircleAvatar(
-                    backgroundImage: AssetImage('assets/avatar.png'),
+                    backgroundImage: AssetImage('assets/images/avatar.png'),
                   ),
                   const SizedBox(width: 8),
                   const Text('Your location'),
@@ -104,13 +104,13 @@ class HomeView extends StatelessWidget {
               Text('Available vehicles', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 12),
               SizedBox(
-                height: 150,
+                height: 200,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: const [
-                    VehicleCard(title: 'Ocean freight', subtitle: 'International', asset: 'assets/ship.png'),
-                    VehicleCard(title: 'Cargo freight', subtitle: 'Reliable', asset: 'assets/truck.png'),
-                    VehicleCard(title: 'Air freight', subtitle: 'International', asset: 'assets/plane.png'),
+                    VehicleCard(title: 'Ocean freight', subtitle: 'International', asset: 'assets/images/cargo.png'),
+                    VehicleCard(title: 'Cargo freight', subtitle: 'Reliable', asset: 'assets/images/truck.png'),
+                    VehicleCard(title: 'Air freight', subtitle: 'International', asset: 'assets/images/plane.png'),
                   ],
                 ),
               ),
