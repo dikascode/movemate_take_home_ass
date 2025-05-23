@@ -200,10 +200,10 @@ class _HomeViewState extends State<HomeView>
             const SizedBox(height: 20),
             if (_visible)
               Animate(
-                key: ValueKey('tracking'),
+                key: const ValueKey('tracking'),
                 effects: [
                   FadeEffect(duration: 600.ms),
-                  SlideEffect(begin: const Offset(0, 0.1)),
+                  const SlideEffect(begin: Offset(0, 0.1)),
                 ],
                 child: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),

@@ -32,8 +32,15 @@ class VehicleCard extends StatelessWidget {
         margin: const EdgeInsets.only(right: 12),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
           color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 8,
+              offset: Offset(0, 4),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
