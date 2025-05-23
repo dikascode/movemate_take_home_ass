@@ -1,9 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import '../main.dart';
 import '../widgets/tracking_card.dart';
 import '../widgets/vehicle_card.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView>
+    with TickerProviderStateMixin, RouteAware {
+  bool _visible = false;
+  Key _listKey = UniqueKey();
+
+  void runAnimation() {
+    setState(() => _visible = false);
+    Future.delayed(const Duration(milliseconds: 100), () {
+      if (mounted) setState(() => _visible = true);
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)! as PageRoute);
+    runAnimation();
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPopNext() {
+    runAnimation();
+    setState(() {
+      _listKey = UniqueKey();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 100), () {
+      setState(() {
+        _visible = true;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,31 +87,26 @@ class HomeView extends StatelessWidget {
             }
           },
           items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
+                icon: Icon(Icons.calculate), label: 'Calculate'),
             BottomNavigationBarItem(
-              icon: Icon(Icons.calculate),
-              label: 'Calculate',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.history), // better for "Shipment History"
-              label: 'Shipment',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
-            ),
+                icon: Icon(Icons.history), label: 'Shipment'),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
           ],
         ),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(0),
-          child: ListView(
-            children: [
-              Container(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            Animate(
+              key: ValueKey('header_$_visible'),
+              effects: [
+                FadeEffect(duration: 500.ms),
+                const SlideEffect(begin: Offset(0, -0.1)),
+              ],
+              child: Container(
                 padding: const EdgeInsets.fromLTRB(16, 24, 16, 32),
                 color: Colors.deepPurple,
                 child: Column(
@@ -152,52 +196,69 @@ class HomeView extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 0,
-                  horizontal: 16,
+            ),
+            const SizedBox(height: 20),
+            if (_visible)
+              Animate(
+                key: ValueKey('tracking'),
+                effects: [
+                  FadeEffect(duration: 600.ms),
+                  SlideEffect(begin: const Offset(0, 0.1)),
+                ],
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: TrackingCard(),
                 ),
-                child: const TrackingCard(),
               ),
-              const SizedBox(height: 20),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 0,
-                  horizontal: 16,
-                ),
-                child: Text('Available vehicles',
-                    style: Theme.of(context).textTheme.titleLarge),
-              ),
-              const SizedBox(height: 12),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 0,
-                  horizontal: 16,
-                ),
-                child: SizedBox(
-                  height: 200,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: const [
-                      VehicleCard(
-                          title: 'Ocean freight',
-                          subtitle: 'International',
-                          asset: 'assets/images/cargo.png'),
-                      VehicleCard(
-                          title: 'Cargo freight',
-                          subtitle: 'Reliable',
-                          asset: 'assets/images/truck.png'),
-                      VehicleCard(
-                          title: 'Air freight',
-                          subtitle: 'International',
-                          asset: 'assets/images/plane.png'),
-                    ],
+            const SizedBox(height: 20),
+            Animate(
+              key: _listKey,
+              effects: [
+                FadeEffect(duration: 600.ms),
+                const SlideEffect(begin: Offset(0, 0.1)),
+              ],
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text('Available vehicles',
+                        style: Theme.of(context).textTheme.titleLarge),
                   ),
-                ),
+                  const SizedBox(height: 12),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: SizedBox(
+                      height: 200,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: const [
+                          VehicleCard(
+                            index: 0,
+                            title: 'Ocean freight',
+                            subtitle: 'International',
+                            asset: 'assets/images/cargo.png',
+                          ),
+                          VehicleCard(
+                            index: 1,
+                            title: 'Cargo freight',
+                            subtitle: 'Reliable',
+                            asset: 'assets/images/truck.png',
+                          ),
+                          VehicleCard(
+                            index: 2,
+                            title: 'Air freight',
+                            subtitle: 'International',
+                            asset: 'assets/images/plane.png',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
