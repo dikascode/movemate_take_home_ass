@@ -8,8 +8,7 @@ class TrackingCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Tracking', style: Theme.of(context).textTheme.titleLarge?.copyWith(
-      fontWeight: FontWeight.bold)),
+        Text('Tracking', style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 12),
         Container(
           padding: const EdgeInsets.all(16),

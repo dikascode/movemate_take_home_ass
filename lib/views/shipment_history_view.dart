@@ -65,6 +65,10 @@ class _ShipmentHistoryViewState extends State<ShipmentHistoryView>
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         backgroundColor: Colors.deepPurple,
         title: const Text(
           'Shipment history',
@@ -90,70 +94,65 @@ class _ShipmentHistoryViewState extends State<ShipmentHistoryView>
             },
           ),
           const SizedBox(height: 12),
-          const Align(
+          Align(
             alignment: Alignment.centerLeft,
             child: Padding(
-              padding:EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-              child:Text(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
                 'Shipments',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
-            )
+            ),
           ),
           const SizedBox(height: 12),
           Expanded(
             child: filteredShipments.isEmpty
                 ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.local_shipping_outlined,
-                      size: 64, color: Colors.deepPurple.shade200),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'No shipments found',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.local_shipping_outlined,
+                            size: 64, color: Colors.deepPurple.shade200),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'No shipments found',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Try selecting a different status',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Try selecting a different status',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey.shade600,
-                    ),
-                  ),
-                ],
-              ),
-            )
+                  )
                 : ListView.builder(
-              key: _listKey,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              itemCount: filteredShipments.length,
-              itemBuilder: (context, index) {
-                final shipment = filteredShipments[index];
-                return Animate(
-                  effects: [
-                    FadeEffect(duration: 500.ms, delay: (index * 100).ms),
-                    SlideEffect(
-                      begin: const Offset(0, 0.1),
-                      duration: 500.ms,
-                      delay: (index * 100).ms,
-                      curve: Curves.easeOut,
-                    ),
-                  ],
-                  child: ShipmentCard(shipment: shipment),
-                );
-              },
-            ),
+                    key: _listKey,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: filteredShipments.length,
+                    itemBuilder: (context, index) {
+                      final shipment = filteredShipments[index];
+                      return Animate(
+                        effects: [
+                          FadeEffect(duration: 500.ms, delay: (index * 100).ms),
+                          SlideEffect(
+                            begin: const Offset(0, 0.1),
+                            duration: 500.ms,
+                            delay: (index * 100).ms,
+                            curve: Curves.easeOut,
+                          ),
+                        ],
+                        child: ShipmentCard(shipment: shipment),
+                      );
+                    },
+                  ),
           )
-
         ],
       ),
     );

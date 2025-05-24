@@ -57,6 +57,10 @@ class _HomeViewState extends State<HomeView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
+        toolbarHeight: 0,
+      ),
       backgroundColor: Colors.white,
       bottomNavigationBar: ClipRRect(
         borderRadius: const BorderRadius.only(
