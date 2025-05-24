@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import '../widgets/estimate_summary_card.dart';
 
 class SummaryView extends StatelessWidget {
@@ -21,27 +22,33 @@ class SummaryView extends StatelessWidget {
                 ),
               ],
             ),
-
             const SizedBox(height: 16),
             const EstimateSummaryCard(
-              amount: '\$1459',
+              amount: '\$1460',
               currency: 'USD',
               description:
-              'This amount is estimated and may vary if you change your location or weight.',
+                  'This amount is estimated and may vary if you change your location or weight.',
               imagePath: 'assets/images/box.png',
             ),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               child: ElevatedButton(
-                onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/')),
+                onPressed: () =>
+                    Navigator.popUntil(context, ModalRoute.withName('/')),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange,
                   minimumSize: const Size.fromHeight(50),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
                 ),
-                child: const Text('Back to home', style: TextStyle(color: Colors.white)),
-              ),
+                child: const Text(
+                  'Back to home',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              )
+                  .animate()
+                  .fade(duration: 500.ms)
+                  .slideY(begin: 0.2, curve: Curves.easeOut),
             ),
           ],
         ),
