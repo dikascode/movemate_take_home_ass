@@ -57,6 +57,7 @@ class ShipmentFilterTabs extends StatelessWidget {
                                   ? FontWeight.bold
                                   : FontWeight.normal,
                               fontSize: 14,
+                              fontFamily: 'Inter'
                             ),
                           ),
                           const SizedBox(width: 6),

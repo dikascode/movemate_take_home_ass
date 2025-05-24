@@ -57,7 +57,6 @@ class _CalculateOrderViewState extends State<CalculateOrderView>
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          backgroundColor: Colors.deepPurple,
           elevation: 0,
           centerTitle: true,
           title: const Text(

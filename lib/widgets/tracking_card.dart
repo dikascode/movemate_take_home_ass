@@ -170,7 +170,7 @@ class _GreenDotText extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: const TextStyle(fontSize: 14, color: Colors.grey)),
+        Text(title, style: const TextStyle(fontSize: 14, color: Colors.grey, fontFamily: 'Inter')),
         const SizedBox(height: 4),
         Row(
           children: [
@@ -178,7 +178,7 @@ class _GreenDotText extends StatelessWidget {
             const SizedBox(width: 4),
             Text(subtitle,
                 style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, fontFamily:  'Inter')),
           ],
         ),
       ],
@@ -197,10 +197,10 @@ class _PlainTextBlock extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+        Text(title, style: const TextStyle(fontSize: 14, color: Colors.grey, fontFamily: 'Inter')),
         const SizedBox(height: 4),
         Text(subtitle,
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, fontFamily: 'Inter')),
       ],
     );
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-
 import '../models/search_shipment.dart';
 import '../widgets/search_result_item.dart';
 
@@ -58,11 +57,14 @@ class _SearchViewState extends State<SearchView> {
                   onTap: () => Navigator.pop(context),
                   child: const Icon(Icons.arrow_back_ios,
                       color: Colors.white, size: 20),
-                ).animate().slideX(
-                    begin: -1.0,
-                    end: 0.0,
-                    duration: 400.ms,
-                    curve: Curves.easeOut).fade(),
+                )
+                    .animate()
+                    .slideX(
+                        begin: -1.0,
+                        end: 0.0,
+                        duration: 400.ms,
+                        curve: Curves.easeOut)
+                    .fade(),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Container(
