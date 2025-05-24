@@ -15,6 +15,7 @@ class _HomeViewState extends State<HomeView>
     with TickerProviderStateMixin, RouteAware {
   bool _visible = false;
   Key _listKey = UniqueKey();
+  final FocusNode _focusNode = FocusNode();
 
   void runAnimation() {
     setState(() => _visible = false);
@@ -33,6 +34,7 @@ class _HomeViewState extends State<HomeView>
   @override
   void dispose() {
     routeObserver.unsubscribe(this);
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -51,6 +53,14 @@ class _HomeViewState extends State<HomeView>
       setState(() {
         _visible = true;
       });
+    });
+
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        // Navigate and unfocus to prevent keyboard flicker
+        _focusNode.unfocus();
+        Navigator.pushNamed(context, '/search');
+      }
     });
   }
 
@@ -86,7 +96,7 @@ class _HomeViewState extends State<HomeView>
                 Navigator.pushNamed(context, '/history');
                 break;
               case 3:
-                Navigator.pushNamed(context, '/search');
+                Navigator.pushNamed(context, '/profile');
                 break;
             }
           },
@@ -175,9 +185,10 @@ class _HomeViewState extends State<HomeView>
                         children: [
                           const Icon(Icons.search, color: Colors.deepPurple),
                           const SizedBox(width: 8),
-                          const Expanded(
+                          Expanded(
                             child: TextField(
-                              decoration: InputDecoration(
+                              focusNode: _focusNode,
+                              decoration: const InputDecoration(
                                 hintText: 'Enter the receipt number ...',
                                 border: InputBorder.none,
                                 hintStyle: TextStyle(color: Colors.grey),
